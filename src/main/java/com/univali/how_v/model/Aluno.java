@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,6 +16,6 @@ public class Aluno {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
     private String cpf;
-    @OneToMany()
-    private List<Disciplina> disciplinas;
+    @ManyToMany(mappedBy = "alunos", fetch = FetchType.LAZY)
+    private Set<Disciplina> disciplinas;
 }

@@ -6,6 +6,7 @@ import com.univali.how_v.record.request.AlunoRequest;
 import com.univali.how_v.record.response.AlunoResponse;
 import com.univali.how_v.service.AlunoService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,22 @@ public class AlunoController {
     public ResponseEntity<Object> save(@RequestBody @Valid AlunoRequest request) {
         Aluno aluno = AlunoMapper.INSTANCE.requestToAluno(request);
         return ResponseEntity.ok(service.cadastrarAluno(aluno));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AlunoResponse> update(@PathVariable Long id,
+                                                @Valid @RequestBody AlunoRequest request) {
+
+        Aluno alunoAtualizado = service.atualizarAluno(id, AlunoMapper.INSTANCE.requestToAluno(request));
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(AlunoMapper.INSTANCE.alunoToResponse(alunoAtualizado));
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable @NotNull Long id) {
+        service.deletarPorId(id);
+        return ResponseEntity.noContent().build();
     }
 }

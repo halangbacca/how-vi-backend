@@ -19,6 +19,15 @@ public class AlunoService {
         return repository.save(request);
     }
 
+    public Aluno atualizarAluno(Long id, Aluno request) {
+
+        if (this.repository.existsById(id)) {
+            request.setId(id);
+            return this.repository.save(request);
+        }
+        throw new EntityNotFoundException("Aluno não encontrado!");
+    }
+
     public List<Aluno> listarAlunos() {
         return repository.findAll();
 
@@ -26,6 +35,15 @@ public class AlunoService {
 
     public Aluno buscarPorId(Long id) {
         return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado!"));
+    }
+
+    public void deletarPorId(Long id) {
+        repository.findById(id)
+                .map(aluno -> {
+                    repository.deleteById(id);
+                    return aluno;
+                })
                 .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado!"));
     }
 }

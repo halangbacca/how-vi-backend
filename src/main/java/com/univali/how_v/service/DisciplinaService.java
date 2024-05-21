@@ -19,6 +19,14 @@ public class DisciplinaService {
         return repository.save(request);
     }
 
+    public Disciplina atualizarDisciplina(Long id, Disciplina request) {
+        if (this.repository.existsById(id)) {
+            request.setId(id);
+            return this.repository.save(request);
+        }
+        throw new EntityNotFoundException("Disciplina não encontrada!");
+    }
+
     public List<Disciplina> listarDisciplinas() {
         return repository.findAll();
 
@@ -26,6 +34,15 @@ public class DisciplinaService {
 
     public Disciplina buscarPorId(Long id) {
         return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada!"));
+    }
+
+    public void deletarPorId(Long id) {
+        repository.findById(id)
+                .map(disciplina -> {
+                    repository.deleteById(id);
+                    return disciplina;
+                })
                 .orElseThrow(() -> new EntityNotFoundException("Disciplina não encontrada!"));
     }
 }
