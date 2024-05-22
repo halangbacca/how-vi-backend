@@ -55,8 +55,10 @@ Requisições para a API devem seguir os padrões:
 | `GET`      | /api/aluno/{id}                                   |
 | `GET`      | /api/disciplina                                   |
 | `GET`      | /api/disciplina/{id}                              |
+| `GET`      | /api/matricula                                    |
 | `POST`     | /api/aluno                                        |
 | `POST`     | /api/disciplina                                   |
+| `POST`     | /api/matricula                                    |
 | `PUT`      | /api/aluno/{id}                                   |
 | `PUT`      | /api/disciplina/{id}                              |
 | `DELETE`   | /api/aluno/{id}                                   |
