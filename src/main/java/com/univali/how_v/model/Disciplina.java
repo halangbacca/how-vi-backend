@@ -16,7 +16,7 @@ public class Disciplina {
     @Column(name = "carga_horaria")
     private Integer cargaHoraria;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "disciplinas_alunos",
+    @JoinTable(name = "matricula",
             joinColumns = @JoinColumn(name = "disciplina_fk"),
             inverseJoinColumns = @JoinColumn(name = "aluno_fk"))
     private Set<Aluno> alunos;

@@ -29,7 +29,6 @@ public class DisciplinaService {
 
     public List<Disciplina> listarDisciplinas() {
         return repository.findAll();
-
     }
 
     public Disciplina buscarPorId(Long id) {
